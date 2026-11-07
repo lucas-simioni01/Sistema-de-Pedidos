@@ -1,7 +1,8 @@
 class Produto {
-    constructor(nome, preco) {
+    constructor(nome, preco, categoria) {
         this.nome = nome;
         this.preco = preco;
+        this.categoria = categoria;
     }
 }
 
@@ -106,7 +107,7 @@ class Pedido {
     }
 }
 
-module.exports = {
+export {
     Produto,
     Cliente,
     Pedido,
