@@ -7,13 +7,56 @@ class Produto {
 }
 
 class Cliente {
-    constructor(nome) {
+    constructor(nome, email, senha) {
         this.nome = nome;
+        this.email = email;
+        this.senha = senha;
         this.pedidos = [];
     }
 
     adicionarPedido(pedido) {
         this.pedidos.push(pedido);
+    }
+}
+
+class SistemaLogin {
+    constructor() {
+        this.clientes = [];
+        this.clienteLogado = null;
+    }
+
+    cadastrarUsuario(nome, email, senha) {
+        const existe = this.clientes.find(
+            cliente => cliente.email === email
+        );
+
+        if (existe) {
+            console.log("Este email já está cadastrado.");
+            return false;
+        }
+
+        const novoCliente = new Cliente(nome, email, senha);
+
+        this.clientes.push(novoCliente);
+
+        return true;
+    }
+
+    autenticarUsuario(email, senha) {
+        const cliente = this.clientes.find(
+            cliente => cliente.email === email && cliente.senha === senha
+        );
+
+        if (cliente) {
+            this.clienteLogado = cliente;
+            return true;
+        }
+
+        return false;
+    }
+
+    logout() {
+        this.clienteLogado = null;
     }
 }
 
@@ -110,6 +153,7 @@ class Pedido {
 export {
     Produto,
     Cliente,
+    SistemaLogin,
     Pedido,
     ItemPedido,
     Pagamento,

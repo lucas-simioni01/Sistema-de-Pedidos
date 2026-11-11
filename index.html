@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,6 +9,7 @@
 
 <body>
 
+    <!--Cabeçalho-->
     <header class="cabecalho">
         <div class="logo">
             <h1>Cantina <span>Unisantos</span></h1>
@@ -20,37 +20,99 @@
             <button></button>
         </div>
 
-        <div class="carrinho">
-            <span>Meu carrinho</span>
+        <div class="area-usuario" id="area-usuario">
+            <button id="btn-login">Entrar</button>
         </div>
     </header>
 
     <main>
 
-        <section class="banner">
-            <div>
-                <h2>Bateu a fome?</h2>
-                <p>Peça seu lanche favorito na Cantina Unisantos!</p>
-            </div>
+        <!--Área de boas-vindas-->
+        <section id="boas-vindas" class="boas-vindas" hidden>
+            <h2>Bem-vindo, <span id="nome-cliente"></span>!</h2>
         </section>
 
-        <section class="categorias">
-            <h2>Explore nossas categorias</h2>
+        <!--Tela de login-->
+        <section id="tela-login" class="tela-autenticacao" hidden>
+            <h2>Bem-vindo de volta!</h2>
+            <p>Entre na sua conta para continuar.</p>
 
-            <div class="lista-categorias">
-                <div class="categoria">🍟 <p>Salgados</p></div>
-                <div class="categoria">🍫 <p>Doces</p></div>
-                <div class="categoria">🥤 <p>Bebidas</p></div>
-            </div>
+            <form id="form-login">
+                <input type="email" id="email-login"
+                    placeholder="Seu e-mail" required>
+
+                <input type="password" id="senha-login"
+                    placeholder="Sua senha" required>
+
+                <button type="submit">Entrar</button>
+            </form>
+
+            <p>
+                Não possui uma conta?
+                <button type="button" id="btn-ir-cadastro">
+                    Criar conta
+                </button>
+            </p>
+
+            <button type="button" id="btn-voltar-login">
+                Voltar
+            </button>
         </section>
 
-        <section class="produtos">
-            <h2>Cardápio</h2>
+        <!--Tela de cadastro-->
+        <section id="tela-cadastro" class="tela-autenticacao" hidden>
+            <h2>Crie sua conta</h2>
+            <p>Preencha seus dados para se cadastrar.</p>
 
-            <div class="lista-produtos" id="lista-produtos">
+            <form id="form-cadastro">
+                <input type="text" id="nome-cadastro"
+                    placeholder="Primeiro nome" required>
 
-            </div>
+                <input type="email" id="email-cadastro"
+                    placeholder="Seu e-mail" required>
+
+                <input type="password" id="senha-cadastro"
+                    placeholder="Crie uma senha" required minlength="8">
+
+                <button type="submit">Criar conta</button>
+            </form>
+
+            <p>
+                Já possui uma conta?
+                <button type="button" id="btn-ir-login">
+                    Fazer login
+                </button>
+            </p>
         </section>
+
+        <!--Conteúdo principal-->
+        <div id="conteudo-principal">
+
+            <section class="banner">
+                <div>
+                    <h2>Bateu a fome?</h2>
+                    <p>Peça seu lanche favorito na Cantina Unisantos!</p>
+                </div>
+            </section>
+
+            <section class="categorias">
+                <h2>Explore nossas categorias</h2>
+
+                <div class="lista-categorias">
+                    <div class="categoria">🍟 <p>Salgados</p></div>
+                    <div class="categoria">🍫 <p>Doces</p></div>
+                    <div class="categoria">🥤 <p>Bebidas</p></div>
+                </div>
+            </section>
+
+            <section class="produtos">
+                <h2>Cardápio</h2>
+
+                <div class="lista-produtos" id="lista-produtos">
+                </div>
+            </section>
+
+        </div>
 
     </main>
 
@@ -62,3 +124,4 @@
 
 </body>
 </html>
+```
