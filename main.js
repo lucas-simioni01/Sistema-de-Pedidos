@@ -661,6 +661,10 @@ function criarCard(produto) {
 
     card.classList.add("produto");
 
+    const imagem = document.createElement("img");
+    imagem.src = produto.imagem;
+    imagem.alt = produto.nome;
+
     const nome = document.createElement("h3");
     nome.textContent = produto.nome;
 
@@ -688,6 +692,7 @@ function criarCard(produto) {
         }, 800);
     });
 
+    card.appendChild(imagem);
     card.appendChild(nome);
     card.appendChild(categoria);
     card.appendChild(preco);
