@@ -62,6 +62,67 @@ export class ItemPedido {
     }
 }
 
+// CARRINHO DE COMPRAS
+
+export class Carrinho {
+    constructor() {
+        this.itens = [];
+    }
+
+    adicionarProduto(produto) {
+        const itemExistente = this.itens.find(
+            item => item.produto.nome === produto.nome
+        );
+
+        if (itemExistente) {
+            itemExistente.quantidade++;
+        } else {
+            const novoItem = new ItemPedido(produto, 1);
+            this.itens.push(novoItem);
+        }
+    }
+
+    alterarQuantidade(produto, quantidade) {
+        const item = this.itens.find(
+            item => item.produto.nome === produto.nome
+        );
+
+        if (!item) return;
+
+        if (quantidade <= 0) {
+            this.removerProduto(produto.nome);
+        } else {
+            item.quantidade = quantidade;
+        }
+    }
+
+    removerProduto(nome) {
+        this.itens = this.itens.filter(
+            item => item.produto.nome !== nome
+        );
+    }
+
+    calcularTotal() {
+        return this.itens.reduce(
+            (total, item) => total + item.calcular_subtotal(),
+            0
+        );
+    }
+
+    quantidadeTotal() {
+        return this.itens.reduce(
+            (total, item) => total + item.quantidade,
+            0
+        );
+    }
+
+    limparCarrinho() {
+        this.itens = [];
+    }
+}
+
+// FORMAS DE PAGAMENTO
+
 export class Pagamento {
     pagar(valor) {
         throw new Error("O método pagar deve ser implementado.");
@@ -95,6 +156,8 @@ export class PagamentoBoleto extends Pagamento {
         return true;
     }
 }
+
+// PEDIDOS
 
 export class Pedido {
     constructor(numero, cliente) {
