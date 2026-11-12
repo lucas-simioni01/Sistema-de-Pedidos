@@ -1,8 +1,7 @@
+
 import { Produto } from "./script.js";
 
-// Banco de dados contendo os produtos
-const produtos = [ 
-
+const produtos = [
     new Produto("Coxinha", 8.5, "Salgado"),
     new Produto("Misto Quente", 8, "Salgado"),
     new Produto("Pastel", 10, "Salgado"),
@@ -27,7 +26,7 @@ const produtos = [
 
     new Produto("Coca-Cola", 6, "Bebida"),
     new Produto("Suco de Laranja", 7, "Bebida"),
-    new Produto("Café Expressinho", 3, "Bebida"),
+    new Produto("Café expresso", 3, "Bebida"),
     new Produto("Iogurte", 4, "Bebida"),
     new Produto("Monster", 10, "Bebida"),
     new Produto("Red Bull", 9, "Bebida"),

@@ -6,6 +6,10 @@
     font-family: Arial, sans-serif;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 body {
     background-color: #f7f7f7;
     color: #333;
@@ -14,21 +18,39 @@ body {
 /* CABEÇALHO */
 
 .cabecalho {
-    background-color: #ea1d2c;
+    background-color: #00275B;
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 6%;
+    padding: 15px 6%;
     gap: 25px;
 }
 
-.logo h1 {
-    font-size: 25px;
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
-.logo span {
-    font-weight: normal;
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    text-decoration: none;
+}
+
+.logo-link img {
+    width: 280px;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    display: block;
+}
+
+.logo a:hover {
+    opacity: 0.85;
 }
 
 .pesquisa {
@@ -51,6 +73,8 @@ body {
     border: none;
     background: white;
     padding: 10px;
+    height: 40px;
+    min-width: 40px;
     cursor: pointer;
 }
 
@@ -65,7 +89,7 @@ body {
     margin: 30px auto;
     width: 88%;
     min-height: 190px;
-    background: linear-gradient(120deg, #ea1d2c, #ff6973);
+    background: linear-gradient(120deg, #00275B, #315B8A);
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -82,16 +106,16 @@ body {
     font-size: 18px;
 }
 
-/* CATEGORIAS */
+/* CATEGORIAS E PRODUTOS */
 
 .categorias,
-.produtos {
+.mais-vendidos {
     width: 88%;
     margin: 40px auto;
 }
 
 .categorias h2,
-.produtos h2 {
+.mais-vendidos h2 {
     margin-bottom: 25px;
     font-size: 24px;
 }
@@ -104,6 +128,7 @@ body {
 
 .categoria {
     background: white;
+    border: 2px solid transparent;
     padding: 25px;
     border-radius: 12px;
     text-align: center;
@@ -112,10 +137,16 @@ body {
     box-shadow: 0 2px 8px #00000010;
     cursor: pointer;
     transition: 0.3s;
+    color: #333;
 }
 
 .categoria:hover {
+    border: 2px solid #00275B;
     transform: translateY(-5px);
+}
+
+.categoria-ativa {
+    border: 2px solid #00275B;
 }
 
 .categoria p {
@@ -123,7 +154,41 @@ body {
     margin-top: 10px;
 }
 
-/* PRODUTOS */
+/* TÍTULO E SETA DE VOLTAR */
+
+.titulo-produtos {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.titulo-produtos h2 {
+    margin-bottom: 0;
+}
+
+#btn-voltar-categorias {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border: none;
+    border-radius: 50%;
+    background-color: #00275B;
+    color: white;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-voltar-categorias:hover {
+    background-color: #315B8A;
+    transform: scale(1.05);
+}
+
+/* LISTA DE PRODUTOS */
 
 .lista-produtos {
     display: grid;
@@ -133,6 +198,7 @@ body {
 
 .produto {
     background: white;
+    border: 2px solid transparent;
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 2px 8px #00000010;
@@ -141,10 +207,11 @@ body {
 
 .produto:hover {
     transform: translateY(-5px);
+    border: 2px solid #00275B;
 }
 
 .imagem-produto {
-    background: #fff0f0;
+    background: #EAF0F7;
     border-radius: 10px;
     height: 140px;
     display: flex;
@@ -164,7 +231,7 @@ body {
 }
 
 .produto strong {
-    color: #ea1d2c;
+    color: #00275B;
     font-size: 18px;
     display: block;
     margin-bottom: 15px;
@@ -172,7 +239,7 @@ body {
 
 .produto button {
     width: 100%;
-    background: #ea1d2c;
+    background: #00275B;
     color: white;
     border: none;
     border-radius: 7px;
@@ -183,13 +250,127 @@ body {
 }
 
 .produto button:hover {
-    background: #c91522;
+    background: #001B40;
+}
+
+/* BOTÃO DE ENTRAR */
+
+.area-usuario {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.area-usuario button {
+    background: white;
+    color: #00275B;
+    border: none;
+    border-radius: 7px;
+    height: 40px;
+    min-width: 75px;
+    padding: 0 12px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.area-usuario button:hover {
+    background: #EAF0F7;
+}
+
+/* TELAS DE AUTENTICAÇÃO */
+
+.tela-autenticacao {
+    background: white;
+    width: 90%;
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 2px 12px #00000015;
+    text-align: center;
+}
+
+.tela-autenticacao h2 {
+    color: #00275B;
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.tela-autenticacao p {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.tela-autenticacao form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tela-autenticacao input {
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    outline: none;
+    font-size: 15px;
+}
+
+.tela-autenticacao input:focus {
+    border-color: #00275B;
+}
+
+.tela-autenticacao form button {
+    background: #00275B;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 13px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tela-autenticacao form button:hover {
+    background: #001B40;
+}
+
+.tela-autenticacao button[type="button"] {
+    background: none;
+    border: none;
+    color: #00275B;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tela-autenticacao button[type="button"]:hover {
+    text-decoration: underline;
+}
+
+/* MENSAGEM DE BOAS-VINDAS */
+
+.boas-vindas {
+    width: 88%;
+    margin: 30px auto 0;
+}
+
+.boas-vindas h2 {
+    font-size: 26px;
+    color: #333;
+}
+
+.boas-vindas span {
+    color: #00275B;
 }
 
 /* RODAPÉ */
 
 footer {
-    background: #333;
+    background: #00275B;
     color: white;
     text-align: center;
     padding: 22px;
@@ -198,9 +379,31 @@ footer {
 
 /* RESPONSIVIDADE */
 
+@media (max-width: 900px) {
+    .cabecalho {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pesquisa {
+        width: 100%;
+        order: 3;
+    }
+}
+
 @media (max-width: 700px) {
     .cabecalho {
         flex-direction: column;
+    }
+
+    .logo-link {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-link img {
+        width: 250px;
+        max-height: none;
     }
 
     .pesquisa {

@@ -1,4 +1,5 @@
-class Produto {
+
+export class Produto {
     constructor(nome, preco, categoria) {
         this.nome = nome;
         this.preco = preco;
@@ -6,11 +7,9 @@ class Produto {
     }
 }
 
-class Cliente {
-    constructor(nome, email, senha) {
+export class Cliente {
+    constructor(nome) {
         this.nome = nome;
-        this.email = email;
-        this.senha = senha;
         this.pedidos = [];
     }
 
@@ -19,40 +18,32 @@ class Cliente {
     }
 }
 
-class SistemaLogin {
+export class SistemaLogin {
     constructor() {
-        this.clientes = [];
+        this.usuarios = [];
         this.clienteLogado = null;
     }
 
     cadastrarUsuario(nome, email, senha) {
-        const existe = this.clientes.find(
-            cliente => cliente.email === email
+        const existe = this.usuarios.some(
+            usuario => usuario.email === email
         );
 
-        if (existe) {
-            console.log("Este email já está cadastrado.");
-            return false;
-        }
+        if (existe) return false;
 
-        const novoCliente = new Cliente(nome, email, senha);
-
-        this.clientes.push(novoCliente);
-
+        this.usuarios.push({ nome, email, senha });
         return true;
     }
 
     autenticarUsuario(email, senha) {
-        const cliente = this.clientes.find(
-            cliente => cliente.email === email && cliente.senha === senha
+        const usuario = this.usuarios.find(
+            usuario => usuario.email === email && usuario.senha === senha
         );
 
-        if (cliente) {
-            this.clienteLogado = cliente;
-            return true;
-        }
+        if (!usuario) return false;
 
-        return false;
+        this.clienteLogado = new Cliente(usuario.nome);
+        return true;
     }
 
     logout() {
@@ -60,7 +51,7 @@ class SistemaLogin {
     }
 }
 
-class ItemPedido {
+export class ItemPedido {
     constructor(produto, quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
@@ -71,41 +62,41 @@ class ItemPedido {
     }
 }
 
-class Pagamento {
+export class Pagamento {
     pagar(valor) {
         throw new Error("O método pagar deve ser implementado.");
     }
 }
 
-class PagamentoPix extends Pagamento {
+export class PagamentoPix extends Pagamento {
     pagar(valor) {
         console.log(`Pagamento via Pix: R$ ${valor.toFixed(2)}`);
         return true;
     }
 }
 
-class PagamentoCredito extends Pagamento {
+export class PagamentoCredito extends Pagamento {
     pagar(valor) {
         console.log(`Pagamento via crédito: R$ ${valor.toFixed(2)}`);
         return true;
     }
 }
 
-class PagamentoDebito extends Pagamento {
+export class PagamentoDebito extends Pagamento {
     pagar(valor) {
         console.log(`Pagamento via débito: R$ ${valor.toFixed(2)}`);
         return true;
     }
 }
 
-class PagamentoBoleto extends Pagamento {
+export class PagamentoBoleto extends Pagamento {
     pagar(valor) {
         console.log(`Pagamento via boleto: R$ ${valor.toFixed(2)}`);
         return true;
     }
 }
 
-class Pedido {
+export class Pedido {
     constructor(numero, cliente) {
         this.numero = numero;
         this.status = "Aberto";
@@ -149,16 +140,3 @@ class Pedido {
         return false;
     }
 }
-
-export {
-    Produto,
-    Cliente,
-    SistemaLogin,
-    Pedido,
-    ItemPedido,
-    Pagamento,
-    PagamentoPix,
-    PagamentoCredito,
-    PagamentoDebito,
-    PagamentoBoleto
-};

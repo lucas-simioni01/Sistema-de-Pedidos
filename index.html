@@ -1,23 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cantina Unisantos</title>
+    <title>Cantina UniSantos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!--Cabeçalho-->
     <header class="cabecalho">
         <div class="logo">
-            <h1>Cantina <span>Unisantos</span></h1>
+            <a href="#" id="link-inicio" class="logo-link">
+                <img src="./logo_unisantos_transparente.png" alt="Logo UniSantos">
+            </a>
         </div>
 
         <div class="pesquisa">
-            <input type="text" placeholder="O que você está procurando?">
-            <button></button>
+            <input
+                type="text"
+                id="campo-pesquisa"
+                placeholder="O que você está procurando?"
+            >
+            <button type="button" id="btn-pesquisa">🔍</button>
         </div>
 
         <div class="area-usuario" id="area-usuario">
@@ -27,71 +33,57 @@
 
     <main>
 
-        <!--Área de boas-vindas-->
         <section id="boas-vindas" class="boas-vindas" hidden>
             <h2>Bem-vindo, <span id="nome-cliente"></span>!</h2>
         </section>
 
-        <!--Tela de login-->
         <section id="tela-login" class="tela-autenticacao" hidden>
             <h2>Bem-vindo de volta!</h2>
             <p>Entre na sua conta para continuar.</p>
 
             <form id="form-login">
-                <input type="email" id="email-login"
-                    placeholder="Seu e-mail" required>
-
-                <input type="password" id="senha-login"
-                    placeholder="Sua senha" required>
-
+                <input type="email" id="email-login" placeholder="Seu e-mail" required>
+                <input type="password" id="senha-login" placeholder="Sua senha" required>
                 <button type="submit">Entrar</button>
             </form>
 
             <p>
                 Não possui uma conta?
-                <button type="button" id="btn-ir-cadastro">
-                    Criar conta
-                </button>
+                <button type="button" id="btn-ir-cadastro">Criar conta</button>
             </p>
 
-            <button type="button" id="btn-voltar-login">
-                Voltar
-            </button>
+            <button type="button" id="btn-voltar-login">Voltar</button>
         </section>
 
-        <!--Tela de cadastro-->
         <section id="tela-cadastro" class="tela-autenticacao" hidden>
             <h2>Crie sua conta</h2>
             <p>Preencha seus dados para se cadastrar.</p>
 
             <form id="form-cadastro">
-                <input type="text" id="nome-cadastro"
-                    placeholder="Primeiro nome" required>
-
-                <input type="email" id="email-cadastro"
-                    placeholder="Seu e-mail" required>
-
-                <input type="password" id="senha-cadastro"
-                    placeholder="Crie uma senha" required minlength="8">
-
+                <input type="text" id="nome-cadastro" placeholder="Primeiro nome" required>
+                <input type="email" id="email-cadastro" placeholder="Seu e-mail" required>
+                <input
+                    type="password"
+                    id="senha-cadastro"
+                    placeholder="Crie uma senha"
+                    required
+                    minlength="8"
+                >
                 <button type="submit">Criar conta</button>
             </form>
 
             <p>
                 Já possui uma conta?
-                <button type="button" id="btn-ir-login">
-                    Fazer login
-                </button>
+                <button type="button" id="btn-ir-login">Fazer login</button>
             </p>
         </section>
 
-        <!--Conteúdo principal-->
         <div id="conteudo-principal">
 
             <section class="banner">
                 <div>
-                    <h2>Bateu a fome?</h2>
-                    <p>Peça seu lanche favorito na Cantina Unisantos!</p>
+                    <h2>Bateu fome?</h2>
+                    <p>Peça seu lanche favorito na Cantina UniSantos!</p>
                 </div>
             </section>
 
@@ -99,17 +91,54 @@
                 <h2>Explore nossas categorias</h2>
 
                 <div class="lista-categorias">
-                    <div class="categoria">🍟 <p>Salgados</p></div>
-                    <div class="categoria">🍫 <p>Doces</p></div>
-                    <div class="categoria">🥤 <p>Bebidas</p></div>
+
+                    <button
+                        type="button"
+                        class="categoria"
+                        data-categoria="Salgado"
+                    >
+                        🍟
+                        <p>Salgados</p>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="categoria"
+                        data-categoria="Doce"
+                    >
+                        🍫
+                        <p>Doces</p>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="categoria"
+                        data-categoria="Bebida"
+                    >
+                        🥤
+                        <p>Bebidas</p>
+                    </button>
+
                 </div>
             </section>
 
-            <section class="produtos">
-                <h2>Cardápio</h2>
+            <section class="mais-vendidos" id="secao-mais-vendidos">
 
-                <div class="lista-produtos" id="lista-produtos">
+                <div class="titulo-produtos">
+                    <button
+                        type="button"
+                        id="btn-voltar-categorias"
+                        hidden
+                        aria-label="Voltar"
+                    >
+                        ←
+                    </button>
+
+                    <h2>Mais vendidos</h2>
                 </div>
+
+                <div class="lista-produtos" id="lista-mais-vendidos"></div>
+
             </section>
 
         </div>
@@ -117,11 +146,10 @@
     </main>
 
     <footer>
-        <p>© 2026 Cantina Unisantos - Todos os direitos reservados.</p>
+        <p>© 2026 Cantina UniSantos - Todos os direitos reservados.</p>
     </footer>
 
     <script type="module" src="main.js"></script>
 
 </body>
 </html>
-```

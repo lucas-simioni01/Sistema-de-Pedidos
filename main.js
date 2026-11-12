@@ -1,76 +1,216 @@
+
 import produtos from "./banco.js";
 import { SistemaLogin } from "./script.js";
 
-// EXIBIÇÃO DOS PRODUTOS
-const listaProdutos = document.getElementById("lista-produtos");
+const listaMaisVendidos = document.getElementById("lista-mais-vendidos");
+const secaoMaisVendidos = document.getElementById("secao-mais-vendidos");
+const tituloProdutos = secaoMaisVendidos.querySelector("h2");
 
-produtos.forEach(produto => {
+const botoesCategorias = document.querySelectorAll(".categoria");
+const btnVoltarCategorias = document.getElementById("btn-voltar-categorias");
 
+const campoPesquisa = document.getElementById("campo-pesquisa");
+const btnPesquisa = document.getElementById("btn-pesquisa");
+
+const nomesMaisVendidos = [
+    "Coxinha",
+    "Misto Quente",
+    "Brownie",
+    "Brigadeiro",
+    "Café expresso",
+    "Achocolatado"
+];
+
+const produtosMaisVendidos = nomesMaisVendidos
+    .map(nome => produtos.find(produto =>
+        produto.nome.toLowerCase() === nome.toLowerCase()
+    ))
+    .filter(produto => produto !== undefined);
+
+// CRIAR CARD DOS PRODUTOS
+
+function criarCard(produto) {
     const card = document.createElement("div");
     card.classList.add("produto");
 
     card.innerHTML = `
         <h3>${produto.nome}</h3>
         <p>${produto.categoria}</p>
-        <strong>R$ ${produto.preco.toFixed(2)}</strong>
-        <button>Adicionar</button>
+        <strong>R$ ${produto.preco.toFixed(2).replace(".", ",")}</strong>
+        <button type="button">Adicionar</button>
     `;
 
-    listaProdutos.appendChild(card);
+    return card;
+}
+
+// MOSTRAR PRODUTOS
+
+function mostrarProdutos(lista) {
+    listaMaisVendidos.replaceChildren();
+
+    if (lista.length === 0) {
+        listaMaisVendidos.innerHTML = "<p>Nenhum produto encontrado.</p>";
+        return;
+    }
+
+    lista.forEach(produto => {
+        listaMaisVendidos.appendChild(criarCard(produto));
+    });
+}
+
+// VOLTAR PARA A PÁGINA INICIAL
+
+function mostrarInicioCategorias() {
+    secaoMaisVendidos.hidden = false;
+
+    tituloProdutos.textContent = "Mais vendidos";
+
+    btnVoltarCategorias.hidden = true;
+
+    mostrarProdutos(produtosMaisVendidos);
+
+    botoesCategorias.forEach(botao => {
+        botao.classList.remove("categoria-ativa");
+    });
+
+    campoPesquisa.value = "";
+}
+
+// INICIAR SITE
+
+mostrarInicioCategorias();
+
+// FILTRAR CATEGORIAS
+
+botoesCategorias.forEach(botao => {
+    botao.addEventListener("click", () => {
+        const categoriaSelecionada = botao.dataset.categoria;
+
+        const produtosFiltrados = produtos.filter(produto =>
+            produto.categoria === categoriaSelecionada
+        );
+
+        const nomeCategoria =
+            categoriaSelecionada === "Salgado" ? "Salgados" :
+            categoriaSelecionada === "Doce" ? "Doces" :
+            "Bebidas";
+
+        tituloProdutos.textContent = nomeCategoria;
+
+        btnVoltarCategorias.hidden = false;
+
+        campoPesquisa.value = "";
+
+        mostrarProdutos(produtosFiltrados);
+
+        botoesCategorias.forEach(item => {
+            item.classList.remove("categoria-ativa");
+        });
+
+        botao.classList.add("categoria-ativa");
+    });
 });
 
-// SISTEMA DE LOGIN
+// BOTÃO DE VOLTAR
+
+btnVoltarCategorias.addEventListener("click", () => {
+    mostrarInicioCategorias();
+});
+
+// PESQUISA
+
+function pesquisarProdutos() {
+    const pesquisa = campoPesquisa.value.toLowerCase().trim();
+
+    const encontrados = produtos.filter(produto =>
+        produto.nome.toLowerCase().includes(pesquisa) ||
+        produto.categoria.toLowerCase().includes(pesquisa)
+    );
+
+    tituloProdutos.textContent = "Resultado da pesquisa";
+
+    btnVoltarCategorias.hidden = false;
+
+    mostrarProdutos(encontrados);
+
+    botoesCategorias.forEach(botao => {
+        botao.classList.remove("categoria-ativa");
+    });
+}
+
+btnPesquisa.addEventListener("click", pesquisarProdutos);
+
+campoPesquisa.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        pesquisarProdutos();
+    }
+});
+
+// LOGIN
+
 const sistemaLogin = new SistemaLogin();
 
-// Elementos do HTML
 const areaUsuario = document.getElementById("area-usuario");
 const conteudoPrincipal = document.getElementById("conteudo-principal");
 const boasVindas = document.getElementById("boas-vindas");
 const nomeCliente = document.getElementById("nome-cliente");
+
 const telaLogin = document.getElementById("tela-login");
 const telaCadastro = document.getElementById("tela-cadastro");
 
-// Botões
+const linkInicio = document.getElementById("link-inicio");
 const btnLogin = document.getElementById("btn-login");
 const btnIrCadastro = document.getElementById("btn-ir-cadastro");
 const btnIrLogin = document.getElementById("btn-ir-login");
 const btnVoltarLogin = document.getElementById("btn-voltar-login");
 
-// Formulários
 const formLogin = document.getElementById("form-login");
 const formCadastro = document.getElementById("form-cadastro");
 
-// Mostrar página inicial
-function mostrarInicio() {
+// MOSTRAR INÍCIO
+
+function voltarParaInicio() {
     telaLogin.hidden = true;
     telaCadastro.hidden = true;
     conteudoPrincipal.hidden = false;
     boasVindas.hidden = true;
+
+    mostrarInicioCategorias();
 }
 
-// Abrir tela de login
+linkInicio.addEventListener("click", event => {
+    event.preventDefault();
+    voltarParaInicio();
+});
+
+// ABRIR LOGIN
+
 btnLogin.addEventListener("click", () => {
     conteudoPrincipal.hidden = true;
     telaCadastro.hidden = true;
     telaLogin.hidden = false;
 });
 
-// Abrir tela de cadastro
+// ABRIR CADASTRO
+
 btnIrCadastro.addEventListener("click", () => {
     telaLogin.hidden = true;
     telaCadastro.hidden = false;
 });
 
-// Voltar para o login
+// VOLTAR PARA LOGIN
+
 btnIrLogin.addEventListener("click", () => {
     telaCadastro.hidden = true;
     telaLogin.hidden = false;
 });
 
-// Voltar para a página inicial
-btnVoltarLogin.addEventListener("click", mostrarInicio);
+// VOLTAR DA TELA DE LOGIN
 
-// Atualizar interface após login
+btnVoltarLogin.addEventListener("click", voltarParaInicio);
+
+// ATUALIZAR USUÁRIO
+
 function atualizarUsuario(cliente) {
     telaLogin.hidden = true;
     telaCadastro.hidden = true;
@@ -79,7 +219,6 @@ function atualizarUsuario(cliente) {
 
     nomeCliente.textContent = cliente.nome;
 
-    // Atualiza o cabeçalho
     areaUsuario.replaceChildren();
 
     const nome = document.createElement("span");
@@ -103,24 +242,23 @@ function atualizarUsuario(cliente) {
 
         areaUsuario.appendChild(btnEntrar);
 
-        mostrarInicio();
+        voltarParaInicio();
     });
 
     areaUsuario.appendChild(nome);
     areaUsuario.appendChild(btnSair);
 }
 
-// CADASTRO
-formCadastro.addEventListener("submit", (event) => {
+// CADASTRAR USUÁRIO
+
+formCadastro.addEventListener("submit", event => {
     event.preventDefault();
 
     const nome = document.getElementById("nome-cadastro").value;
     const email = document.getElementById("email-cadastro").value;
     const senha = document.getElementById("senha-cadastro").value;
 
-    const cadastrado = sistemaLogin.cadastrarUsuario(
-        nome, email, senha
-    );
+    const cadastrado = sistemaLogin.cadastrarUsuario(nome, email, senha);
 
     if (cadastrado) {
         sistemaLogin.autenticarUsuario(email, senha);
@@ -135,17 +273,15 @@ formCadastro.addEventListener("submit", (event) => {
     }
 });
 
+// FAZER LOGIN
 
-// LOGIN
-formLogin.addEventListener("submit", (event) => {
+formLogin.addEventListener("submit", event => {
     event.preventDefault();
 
     const email = document.getElementById("email-login").value;
     const senha = document.getElementById("senha-login").value;
 
-    const autenticado = sistemaLogin.autenticarUsuario(
-        email, senha
-    );
+    const autenticado = sistemaLogin.autenticarUsuario(email, senha);
 
     if (autenticado) {
         atualizarUsuario(sistemaLogin.clienteLogado);
